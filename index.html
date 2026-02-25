@@ -36,6 +36,8 @@ Hello! My name is Abhishek.
 I am learning coding and website development.  
 This is my first personal website made using HTML, CSS and JavaScript.
 </p>
+<button onclick="googleLogin()">Login with Google</button>
+<h2 id="welcome"></h2>
 
 <h2>My Skills</h2>
 
@@ -46,7 +48,51 @@ This is my first personal website made using HTML, CSS and JavaScript.
     <p>Python ⭐⭐</p>
 </div>
 
-<script src="script.js"></script>
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAcTv3Qvp3XlyQp6s6_wQ_9Ou5KR1Y-UNU",
+    authDomain: "abhishek-website-2d79f.firebaseapp.com",
+    projectId: "abhishek-website-2d79f",
+    storageBucket: "abhishek-website-2d79f.firebasestorage.app",
+    messagingSenderId: "1002360339860",
+    appId: "1:1002360339860:web:f999538a9a20897235a381",
+    measurementId: "G-PD0YZ6LPE6"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+window.googleLogin = function () {
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    const user = result.user;
+    document.getElementById("welcome").innerText =
+      "Welcome " + user.displayName;
+  });
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("welcome").innerText =
+      "Welcome " + user.displayName;
+  }
+});
+
+</script>
 
 </body>
 </html>
