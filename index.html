@@ -1,97 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abhishek Website</title>
+<title>Abhishek Official</title>
 
-<link rel="stylesheet" href="style.css">
-<link rel="manifest" herf="manifest.json">
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  text-align:center;
+  color:white;
+  overflow-x:hidden;
+  background: linear-gradient(-45deg,#1e3c72,#2a5298,#ff512f,#dd2476);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.dark{
+  background:#111 !important;
+  animation:none;
+}
+
+.navbar{
+  padding:20px;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.profile{
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  border:4px solid white;
+  margin-top:20px;
+}
+
+button{
+  padding:10px 20px;
+  margin:10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.login{background:#4285F4;color:white;}
+.logout{background:red;color:white;}
+.darkbtn{background:black;color:white;}
+
+.social{
+  margin-top:15px;
+}
+
+.social a{
+  text-decoration:none;
+  padding:10px 15px;
+  margin:5px;
+  border-radius:6px;
+  color:white;
+  display:inline-block;
+}
+
+.insta{background:#E1306C;}
+
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  padding:12px 15px;
+  border-radius:50px;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+</style>
+
 </head>
-
 <body>
 
 <div class="navbar">
-    <h2>Abhishek</h2>
+  Abhishek Kumar Singh 🚀
 </div>
 
-<div class="main">
+<img src="https://via.placeholder.com/160" class="profile">
 
-    <img src="mypic.jpg.jpeg" class="profile">
+<h1>Welcome to My Official Website 👋</h1>
 
-    <h1>Hi, I'm Abhishek 👋</h1>
+<button class="login" onclick="googleLogin()">Login with Google</button>
+<button class="logout" onclick="logout()">Logout</button>
+<button class="darkbtn" onclick="toggleDark()">Toggle Dark Mode</button>
 
-    <button onclick="showMessage()">Click Me</button>
+<h3 id="welcome"></h3>
 
-    <button onclick="toggleDarkMode()">Dark Mode</button>
-
-    <button onclick="openWhatsApp()">Chat on WhatsApp</button>
-
-    <p id="visitorCount"></p>
-<hr>
-
-<h2>About Me</h2>
-<p>
-Hello! My name is Abhishek.  
-I am learning coding and website development.  
-This is my first personal website made using HTML, CSS and JavaScript.
-</p>
-<button onclick="googleLogin()">Login with Google</button>
-<h2 id="welcome"></h2>
-
-<h2>My Skills</h2>
-
-<div class="skills">
-    <p>HTML ⭐⭐⭐⭐</p>
-    <p>CSS ⭐⭐⭐</p>
-    <p>JavaScript ⭐⭐</p>
-    <p>Python ⭐⭐</p>
+<div class="social">
+  <a href="https://instagram.com/error_abhishek_singh_04_" target="_blank" class="insta">
+    Instagram
+  </a>
 </div>
+
+<a href="https://wa.me/919939931753" class="whatsapp">
+  Chat
+</a>
 
 <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAcTv3Qvp3XlyQp6s6_wQ_9Ou5KR1Y-UNU",
-    authDomain: "abhishek-website-2d79f.firebaseapp.com",
-    projectId: "abhishek-website-2d79f",
-    storageBucket: "abhishek-website-2d79f.firebasestorage.app",
-    messagingSenderId: "1002360339860",
-    appId: "1:1002360339860:web:f999538a9a20897235a381",
-    measurementId: "G-PD0YZ6LPE6"
+const firebaseConfig = {
+  apiKey: "aSyAcTv3Qvp3XlyQp6s6_wQ_9Ou5KR1Y-UNU",
+  authDomain: "abhishek-website-2d79f.firebaseapp.com",
+  projectId: "abhishek-website-2d79f",
+  storageBucket: "abhishek-website-2d79f.appspot.com",
+  messagingSenderId: "1002360339860",
+  appId: "1:1002360339860:web:f999538a9a20897235a381"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-window.googleLogin = function () {
+window.googleLogin = function(){
   signInWithPopup(auth, provider)
-  .then((result) => {
+  .then((result)=>{
     const user = result.user;
     document.getElementById("welcome").innerText =
-      "Welcome " + user.displayName;
+    "Welcome " + user.displayName;
+  })
+  .catch((error)=>{
+    alert(error.message);
   });
-};
+}
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    document.getElementById("welcome").innerText =
-      "Welcome " + user.displayName;
-  }
-});
+window.logout = function(){
+  signOut(auth).then(()=>{
+    document.getElementById("welcome").innerText="";
+  });
+}
 
+window.toggleDark = function(){
+  document.body.classList.toggle("dark");
+}
 </script>
 
 </body>
